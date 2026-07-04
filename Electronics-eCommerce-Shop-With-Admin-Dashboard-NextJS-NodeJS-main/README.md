@@ -235,42 +235,60 @@ npm install</code></pre>
 </ol>
 
 <h3>2. Frontend hosting on Vercel</h3>
+<p>Deploy the Next.js frontend from this project folder. If your repository contains the actual app in the <code>Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS-main</code> directory, choose that folder as the Vercel root when importing.</p>
 <ol>
-  <li>Create a Vercel account and connect your GitHub repository.</li>
-  <li>Use this repository root as the project.</li>
-  <li>Use the default build settings: <code>npm run build</code> and output directory <code>.next</code>.</li>
-  <li>In Vercel environment variables, set the production values exactly as below.</li>
-  <li>Deploy the project.</li>
+  <li>Sign in to <a href="https://vercel.com">vercel.com</a> and click <strong>New Project</strong>.</li>
+  <li>Import the GitHub repository and choose the correct folder. If the app is inside <code>Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS-main</code>, set Root Directory to that path.</li>
+  <li>Set the build command to <code>npm run build</code> and the output directory to <code>.next</code>.</li>
+  <li>Go to <strong>Settings → Environment Variables</strong> and add the variables shown below.</li>
+  <li>Save the values and deploy the project.</li>
+</ol>
+
+<h4>How to add environment variables in Vercel</h4>
+<ol>
+  <li>Open the project on Vercel.</li>
+  <li>Click <strong>Settings</strong> → <strong>Environment Variables</strong>.</li>
+  <li>Click <strong>Add</strong>, enter the <strong>Name</strong> and <strong>Value</strong>.</li>
+  <li>Choose the environment: <strong>Production</strong> and, if needed, <strong>Preview</strong>.</li>
+  <li>Repeat for each variable, then redeploy the project.</li>
 </ol>
 
 <h3>3. Backend hosting on Hugging Face Spaces</h3>
-<p>Hugging Face Spaces can host a custom backend using a Docker-based Space. The backend must listen on <code>process.env.PORT</code>, which this project already supports.</p>
+<p>Use a custom Docker Space to run the backend from the <code>server/</code> folder. This app already listens on <code>process.env.PORT</code>, so Hugging Face will assign the port automatically.</p>
 <ol>
-  <li>Create a new Hugging Face Space.</li>
-  <li>Select <strong>Custom Docker</strong> as the Space type.</li>
-  <li>Push the backend files to the Space repository. The Space repo should include at least:
+  <li>Go to <a href="https://huggingface.co/spaces">huggingface.co/spaces</a> and click <strong>Create new Space</strong>.</li>
+  <li>Select <strong>Custom Docker</strong> and choose <strong>CPU Basic</strong> for a free option.</li>
+  <li>Push the backend files to the Space repository. The repository should include at least:
     <ul>
       <li><code>server/</code> folder</li>
       <li><code>prisma/</code> folder</li>
       <li><code>server/package.json</code></li>
       <li><code>server/.env.example</code></li>
-      <li><code>Dockerfile</code> or custom build file for the backend</li>
+      <li><code>server/Dockerfile</code></li>
     </ul>
   </li>
-  <li>Set the Hugging Face Space environment variables to production values.</li>
-  <li>Note the deployed backend URL. Use it in Vercel as <code>NEXT_PUBLIC_API_BASE_URL</code>.</li>
+  <li>In the Space settings, add the production environment variables with the same names used in this project.</li>
+  <li>After the Space is deployed, copy the backend URL (for example, <code>https://your-space-name.hf.space</code>).</li>
+  <li>Set <code>NEXT_PUBLIC_API_BASE_URL</code> on Vercel to the Hugging Face backend URL.</li>
 </ol>
 
 <h3>4. Database hosting options</h3>
-<p>Use a free hosted MySQL-compatible database like PlanetScale, Neon MySQL, or another free provider. PlanetScale is a good choice for a production-ready, free MySQL-compatible database.</p>
+<p>Use a hosted MySQL-compatible database so both the frontend and backend can connect from the cloud. Local <code>localhost</code> databases will not work for live deployment.</p>
+<p>Good free options:</p>
+<ul>
+  <li>PlanetScale MySQL</li>
+  <li>Neon MySQL</li>
+  <li>Supabase MySQL</li>
+  <li>Railway MySQL</li>
+</ul>
 <ol>
-  <li>Create a hosted MySQL database.</li>
-  <li>Create a database user and copy the connection string.</li>
-  <li>Set <code>DATABASE_URL</code> in both Vercel and the Hugging Face backend environment to that connection string.</li>
+  <li>Create the hosted database and a database user.</li>
+  <li>Copy the provider connection string.</li>
+  <li>Set <code>DATABASE_URL</code> on Vercel and in the Hugging Face backend environment to that connection string.</li>
 </ol>
 
 <h3>5. Production environment variables</h3>
-<p>Use the same variable names in all environments. Only values change between local and live deployments.</p>
+<p>Use the same names in all environments. Change only the values between local and live hosting.</p>
 
 <pre><code>NEXTAUTH_URL=https://your-frontend.vercel.app
 NEXT_PUBLIC_API_BASE_URL=https://your-backend.hf.space
@@ -286,19 +304,19 @@ PAYHEAR_MERCHANT_SECRET=your-payhear-merchant-secret
 </code></pre>
 
 <h3>6. Google OAuth</h3>
-<p>Set the callback URL in Google Cloud Console to:</p>
+<p>In Google Cloud Console, set the redirect URI to:</p>
 
 <pre><code>https://your-frontend.vercel.app/api/auth/callback/google</code></pre>
 
 <h3>7. Important notes</h3>
 <ul>
-  <li>Do not commit real secrets to GitHub. Keep them in <code>.env</code> locally and platform env vars in production.</li>
-  <li><code>NEXT_PUBLIC_API_BASE_URL</code> is the live backend URL used by the frontend.</li>
-  <li><code>NEXTAUTH_URL</code> must match the actual frontend URL used by users.</li>
-  <li>Use the same env variable names in local and production so the code works unchanged.</li>
+  <li>Do not commit real secrets or API keys to GitHub. Keep secrets in <code>.env</code> locally and platform environment variables in production.</li>
+  <li><code>NEXT_PUBLIC_API_BASE_URL</code> must point to the backend API URL that the frontend calls.</li>
+  <li><code>NEXTAUTH_URL</code> and <code>FRONTEND_URL</code> should match the actual deployed frontend URL.</li>
+  <li>If you use Hugging Face as backend, set the same <code>DATABASE_URL</code> there and allow the frontend URL in backend CORS.</li>
 </ul>
 
-<p>16. Google OAuth redirect URL: <code>http://localhost:3000/api/auth/callback/google</code></p>
+<p>Local Google OAuth redirect URL: <code>http://localhost:3000/api/auth/callback/google</code></p>
 
 <h2>Project screenshots</h2>
 
