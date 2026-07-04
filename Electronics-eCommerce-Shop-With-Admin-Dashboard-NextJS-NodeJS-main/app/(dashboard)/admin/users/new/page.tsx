@@ -37,18 +37,16 @@ const DashboardCreateNewUser = () => {
 
       if (userInput.password.length > 7) {
         const requestOptions: any = {
-          method: "post",
+          method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(sanitizedUserInput),
         };
-        ap(`/api/users`, requestOptions)
+        fetch(`/api/users`, requestOptions)
           .then((response) => {
-            if(response.status === 201){
+            if (response.status === 201) {
               return response.json();
-
-            }else{
-              
-              throw Error("Error while creating user");
+            } else {
+              throw new Error("Error while creating user");
             }
           })
           .then((data) => {
@@ -58,7 +56,8 @@ const DashboardCreateNewUser = () => {
               password: "",
               role: "user",
             });
-          }).catch(error => {
+          })
+          .catch((error) => {
             toast.error("Error while creating user");
           });
       } else {
