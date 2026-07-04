@@ -1,0 +1,46 @@
+# Root .gitignore for the repository
+
+# Node modules
+node_modules/
+Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS-main/node_modules/
+Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS-main/server/node_modules/
+
+# Environment files
+.env
+.env.*
+Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS-main/.env
+Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS-main/.env.*
+Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS-main/server/.env
+Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS-main/server/.env.*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Next.js
+Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS-main/.next/
+Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS-main/out/
+
+# Build outputs
+Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS-main/build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Database backups
+/backups/
+*.sql
+*.dump
+*.backup
