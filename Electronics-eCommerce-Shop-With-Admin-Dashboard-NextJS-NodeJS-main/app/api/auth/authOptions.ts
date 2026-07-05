@@ -1,4 +1,4 @@
-import { Account, User as AuthUser } from "next-auth";
+
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
@@ -46,7 +46,7 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account }: { user: AuthUser; account: Account }) {
+    async signIn({ user, account }: { user: any; account: any }) {
       if (account?.provider === "credentials") {
         return true;
       }
