@@ -1,0 +1,37 @@
+name: Sync Server Folder to Hugging Face
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Push Server Folder Only to Hugging Face
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          # Git configuration
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          
+          # Clone the Hugging Face space repository
+          git clone https://lakayaka:$HF_TOKEN@huggingface.co/spaces/lakayaka/computershop hf_space
+          
+          # Clear old files in HF Space except git data
+          find hf_space -maxdepth 1 ! -name 'hf_space' ! -name '.git' -exec rm -rf {} +
+          
+          # Copy everything from inside the long folder's server directory
+          cp -r Electronics-eCommerce-Shop-With-Admin-Dashboard-NextJS-NodeJS-main/server/* hf_space/
+          
+          # Go inside HF folder, commit and push
+          cd hf_space
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Deploy server update from GitHub Actions Root"
+          git push origin main --force
