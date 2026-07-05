@@ -21,8 +21,8 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           
-          # Clone the Hugging Face space repository into a temporary folder using your real values
-          git clone https://lakayaka45-bit:$HF_TOKEN@huggingface.co/spaces/lakayaka45-bit/computer_v2 hf_space
+          # Real Hugging Face URL for lakayaka/computershop
+          git clone https://lakayaka:$HF_TOKEN@huggingface.co/spaces/lakayaka/computershop hf_space
           
           # Clear old files in HF Space except git data
           find hf_space -maxdepth 1 ! -name 'hf_space' ! -name '.git' -exec rm -rf {} +
