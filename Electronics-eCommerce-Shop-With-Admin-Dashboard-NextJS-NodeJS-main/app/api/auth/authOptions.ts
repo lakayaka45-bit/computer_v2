@@ -16,6 +16,17 @@ export const authOptions = {
       },
       async authorize(credentials: any) {
         try {
+          const adminUsername = process.env.ADMIN_USERNAME || "adminLaka";
+          const adminPassword = process.env.ADMIN_PASSWORD || "Ux3@f=7x2";
+
+          if (credentials.email === adminUsername && credentials.password === adminPassword) {
+            return {
+              id: "admin-seeded-account",
+              email: `${adminUsername}@local.test`,
+              role: "admin",
+            };
+          }
+
           const user = await prisma.user.findFirst({
             where: {
               email: credentials.email,

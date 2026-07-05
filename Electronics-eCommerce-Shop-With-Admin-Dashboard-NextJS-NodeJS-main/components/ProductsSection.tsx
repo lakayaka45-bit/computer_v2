@@ -9,58 +9,58 @@
 // *********************
 
 import React from "react";
+import Link from "next/link";
 import ProductItem from "./ProductItem";
 import Heading from "./Heading";
 import apiClient from "@/lib/api";
 
-const COMPUTER_CATEGORY_NAMES = [
-  "laptops",
-  "computers",
-  "mouses",
-  "printers",
-];
-
 const ProductsSection = async () => {
   let products = [];
-  
+
   try {
-    // sending API request for getting all products
     const data = await apiClient.get("/api/products");
-    
+
     if (!data.ok) {
-      console.error('Failed to fetch products:', data.statusText);
+      console.error("Failed to fetch products:", data.statusText);
       products = [];
     } else {
       const result = await data.json();
-      // Ensure products is an array
       products = Array.isArray(result) ? result : [];
     }
   } catch (error) {
-    console.error('Error fetching products:', error);
+    console.error("Error fetching products:", error);
     products = [];
   }
 
-  const computerProducts = products.filter((product: any) =>
-    COMPUTER_CATEGORY_NAMES.includes(product.category?.name)
-  );
+  const featuredProducts = products.slice(0, 30);
 
   return (
-    <div className="bg-blue-500 border-t-4 border-white">
-      <div className="max-w-screen-2xl mx-auto pt-20">
-        <Heading title="FEATURED COMPUTER PRODUCTS" />
-        <div className="grid grid-cols-4 justify-items-center max-w-screen-2xl mx-auto py-10 gap-x-2 px-10 gap-y-8 max-xl:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1">
-          {computerProducts.length > 0 ? (
-            computerProducts.map((product: any) => (
-              <ProductItem key={product.id} product={product} color="white" />
+    <section className="bg-[linear-gradient(135deg,#ffffff_0%,#f7fdf4_100%)] py-20">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#2e7d32]">Featured collection</p>
+            <Heading title="30 handpicked products" />
+          </div>
+          <Link href="/shop" className="rounded-full border border-[#2e7d32] px-5 py-2 text-sm font-semibold text-[#2e7d32] transition hover:bg-[#f7fdf4]">
+            Explore more
+          </Link>
+        </div>
+        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
+          {featuredProducts.length > 0 ? (
+            featuredProducts.map((product: any) => (
+              <div key={product.id} className="rounded-[1.5rem] border border-[#e8f7df] bg-white p-4 shadow-[0_12px_40px_rgba(0,0,0,0.04)]">
+                <ProductItem key={product.id} product={product} color="black" />
+              </div>
             ))
           ) : (
-            <div className="col-span-full text-center text-white py-10">
-              <p>No computer products available at the moment.</p>
+            <div className="col-span-full rounded-2xl border border-dashed border-[#cde8ba] bg-[#f7fdf4] py-12 text-center text-gray-700">
+              <p>No featured products available at the moment.</p>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

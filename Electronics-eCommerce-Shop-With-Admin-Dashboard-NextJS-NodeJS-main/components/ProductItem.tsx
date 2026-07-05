@@ -23,7 +23,7 @@ const ProductItem = ({
 }) => {
   return (
     <div className="flex flex-col items-center gap-y-2">
-      <Link href={`/product/${product.slug}`}>
+      <Link href={`/product/${product.slug}`} className="w-full rounded-2xl bg-[#f7fdf4] p-3">
         <Image
           src={
             product.mainImage
@@ -33,7 +33,7 @@ const ProductItem = ({
           width="0"
           height="0"
           sizes="100vw"
-          className="w-auto h-[300px]"
+          className="h-[220px] w-full rounded-xl object-cover"
           alt={sanitize(product?.title) || "Product image"}
         />
       </Link>
@@ -41,8 +41,8 @@ const ProductItem = ({
         href={`/product/${product.slug}`}
         className={
           color === "black"
-            ? `text-xl text-black font-normal mt-2 uppercase`
-            : `text-xl text-white font-normal mt-2 uppercase`
+            ? `text-lg text-black font-semibold mt-2 uppercase text-center`
+            : `text-lg text-black font-semibold mt-2 uppercase text-center`
         }
       >
         {sanitize(product.title)}
@@ -50,8 +50,8 @@ const ProductItem = ({
       <p
         className={
           color === "black"
-            ? "text-lg text-black font-semibold"
-            : "text-lg text-white font-semibold"
+            ? "text-base text-[#2e7d32] font-semibold"
+            : "text-base text-[#2e7d32] font-semibold"
         }
       >
         ${product.price}
@@ -60,7 +60,7 @@ const ProductItem = ({
   
       <Link
         href={`/product/${product?.slug}`}
-        className="block flex justify-center items-center w-full uppercase bg-white px-0 py-2 text-base border border-black border-gray-300 font-bold text-blue-600 shadow-sm hover:bg-black hover:bg-gray-100 focus:outline-none focus:ring-2"
+        className="mt-2 flex w-full items-center justify-center rounded-full border border-[#2e7d32] bg-[#f7fdf4] px-3 py-2 text-sm font-semibold uppercase text-[#2e7d32] shadow-sm transition hover:bg-[#2e7d32] hover:text-white"
       >
         <p>View product</p>
       </Link>
