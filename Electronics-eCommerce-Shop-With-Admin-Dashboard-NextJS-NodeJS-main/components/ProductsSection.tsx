@@ -8,30 +8,40 @@
 // Output: products grid
 // *********************
 
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import ProductItem from "./ProductItem";
 import Heading from "./Heading";
 import apiClient from "@/lib/api";
 import { isComputerRelatedProduct } from "@/lib/utils";
 
-const ProductsSection = async () => {
-  let products = [];
+const ProductsSection = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  try {
-    const data = await apiClient.get("/api/products");
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const response = await apiClient.get("/api/products");
+        if (!response.ok) {
+          console.error("Failed to fetch products:", response.statusText);
+          setProducts([]);
+          return;
+        }
+        const result = await response.json();
+        setProducts(Array.isArray(result) ? result : []);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    if (!data.ok) {
-      console.error("Failed to fetch products:", data.statusText);
-      products = [];
-    } else {
-      const result = await data.json();
-      products = Array.isArray(result) ? result : [];
-    }
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    products = [];
-  }
+    loadProducts();
+  }, []);
 
   const featuredProducts = products.filter(isComputerRelatedProduct).slice(0, 12);
 
@@ -47,8 +57,17 @@ const ProductsSection = async () => {
             Explore more
           </Link>
         </div>
+
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-          {featuredProducts.length > 0 ? (
+          {loading ? (
+            Array.from({ length: 4 }).map((_, index) => (
+              <div key={index} className="rounded-[1.5rem] border border-[#e8f7df] bg-white p-6 shadow-[0_12px_40px_rgba(0,0,0,0.04)]">
+                <div className="h-48 rounded-3xl bg-slate-100" />
+                <div className="mt-5 h-6 w-3/4 rounded-full bg-slate-200" />
+                <div className="mt-3 h-4 w-1/2 rounded-full bg-slate-200" />
+              </div>
+            ))
+          ) : featuredProducts.length > 0 ? (
             featuredProducts.map((product: any) => (
               <div key={product.id} className="rounded-[1.5rem] border border-[#e8f7df] bg-white p-4 shadow-[0_12px_40px_rgba(0,0,0,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_16px_50px_rgba(46,125,50,0.12)]">
                 <ProductItem key={product.id} product={product} color="black" />

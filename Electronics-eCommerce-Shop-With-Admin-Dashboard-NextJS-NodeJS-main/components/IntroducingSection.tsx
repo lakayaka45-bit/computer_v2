@@ -11,7 +11,7 @@ const IntroducingSection = () => {
             Premium computer solutions, built around real performance and dependable service.
           </h2>
           <p className="mt-4 max-w-2xl text-lg text-slate-300">
-            Whether you&apos;re upgrading a home office, assembling a gaming setup or sourcing reliable parts, Lakmal Computer Shop delivers a smoother, more confident buying experience.
+            Whether you&apos;re upgrading a home office, assembling a gaming setup or sourcing reliable parts, UNLIMIT PC HOUSE delivers a smoother, more confident buying experience.
           </p>
         </div>
 
