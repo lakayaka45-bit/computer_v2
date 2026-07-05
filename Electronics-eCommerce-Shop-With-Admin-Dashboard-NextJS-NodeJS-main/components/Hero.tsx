@@ -1,54 +1,122 @@
-// *********************
-// Role of the component: Classical hero component on home page
-// Name of the component: Hero.tsx
-// Developer: Aleksandar Kuzmanovic
-// Version: 1.0
-// Component call: <Hero />
-// Input parameters: no input parameters
-// Output: Classical hero component with two columns on desktop and one column on smaller devices
-// *********************
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import { siteConfig } from "@/lib/site";
+import React, { useEffect, useState } from "react";
+
+const slides = [
+  {
+    badge: "Premium desktop builds",
+    title: "Performance machines for creators, gamers and professionals.",
+    description:
+      "Discover curated laptops, desktops, networking gear and upgrades designed for speed, reliability and modern workstyles.",
+    image: "/laptop 4.webp",
+    highlight: "New arrivals • Ryzen and Intel options",
+    cta: "Explore the range",
+  },
+  {
+    badge: "Fast local support",
+    title: "Build smarter with experts who understand Sri Lankan tech needs.",
+    description:
+      "From office laptops to immersive gaming rigs, our team helps you choose the right hardware and setup without the noise.",
+    image: "/pc 1.png",
+    highlight: "Installation support • warranty backed",
+    cta: "Talk to our team",
+  },
+  {
+    badge: "Upgrade ready",
+    title: "Every part, accessory and device is selected to keep your setup future-ready.",
+    description:
+      "Upgrade your workstation with dependable components, accessories and maintenance support that feel premium from day one.",
+    image: "/laptop 1.webp",
+    highlight: "Parts + peripherals • next-day delivery",
+    cta: "Browse parts",
+  },
+];
 
 const Hero = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % slides.length);
+    }, 5000);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const currentSlide = slides[activeIndex];
+
   return (
-    <section className="overflow-hidden bg-[radial-gradient(circle_at_top_left,_#f7fdf4_0%,_#ffffff_40%,_#eef8e8_100%)]">
-      <div className="mx-auto grid min-h-[680px] max-w-7xl items-center gap-10 px-6 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:px-10">
-        <div className="animate-[fadeInUp_0.8s_ease-out]">
-          <p className="inline-flex rounded-full border border-[#d6f3c5] bg-[#f7fdf4] px-4 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-[#2e7d32]">
-            Premium tech for Sri Lanka
+    <section className="relative overflow-hidden bg-slate-950 text-white">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.28),_transparent_38%),radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.24),_transparent_35%)]" />
+      <div className="mx-auto grid min-h-[720px] max-w-7xl items-center gap-8 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
+        <div className="relative z-10">
+          <p className="inline-flex rounded-full border border-emerald-400/30 bg-white/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.35em] text-emerald-300 backdrop-blur">
+            {currentSlide.badge}
           </p>
-          <h1 className="mt-6 text-4xl font-black uppercase leading-tight text-black sm:text-5xl lg:text-6xl">
-            Build smarter, game harder, work lighter.
+          <h1 className="mt-6 text-4xl font-black uppercase leading-tight text-white sm:text-5xl lg:text-6xl">
+            {currentSlide.title}
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-gray-700">
-            Discover curated laptops, custom PCs, accessories, and future-ready gadgets from {siteConfig.companyName}. Every product is selected for quality, speed, and value in LKR.
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+            {currentSlide.description}
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link href="/shop" className="rounded-full bg-[#2e7d32] px-7 py-3 font-semibold text-white transition hover:-translate-y-1 hover:bg-[#1b5e20]">
-              Shop now
+            <Link href="/shop" className="rounded-full bg-emerald-500 px-7 py-3 font-semibold text-white transition hover:-translate-y-1 hover:bg-emerald-400">
+              {currentSlide.cta}
             </Link>
-            <Link href="/contact" className="rounded-full border border-[#2e7d32] px-7 py-3 font-semibold text-[#2e7d32] transition hover:-translate-y-1 hover:bg-[#f7fdf4]">
+            <Link href="/contact" className="rounded-full border border-white/20 bg-white/10 px-7 py-3 font-semibold text-white transition hover:-translate-y-1 hover:bg-white/20">
               Contact us
             </Link>
           </div>
-          <div className="mt-8 flex flex-wrap gap-4 text-sm font-medium text-gray-700">
-            <span className="rounded-full bg-white px-4 py-2 shadow-sm">Fast delivery in Sri Lanka</span>
-            <span className="rounded-full bg-white px-4 py-2 shadow-sm">Flexible payment options</span>
-            <span className="rounded-full bg-white px-4 py-2 shadow-sm">Expert support</span>
+
+          <div className="mt-8 flex items-center gap-2">
+            {slides.map((slide, index) => (
+              <button
+                key={slide.badge}
+                type="button"
+                aria-label={`Show slide ${index + 1}`}
+                onClick={() => setActiveIndex(index)}
+                className={`h-2.5 rounded-full transition-all ${
+                  activeIndex === index ? "w-8 bg-emerald-400" : "w-2.5 bg-white/40"
+                }`}
+              />
+            ))}
+          </div>
+
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            {[
+              { label: "Fast delivery", value: "24h" },
+              { label: "Trusted brands", value: "40+" },
+              { label: "Expert support", value: "Live" },
+            ].map((item) => (
+              <div key={item.label} className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 backdrop-blur">
+                <p className="text-2xl font-semibold text-white">{item.value}</p>
+                <p className="mt-1 text-sm text-slate-300">{item.label}</p>
+              </div>
+            ))}
           </div>
         </div>
-        <div className="animate-[fadeInRight_0.9s_ease-out] rounded-[2rem] border border-[#d6f3c5] bg-white p-6 shadow-[0_30px_80px_rgba(0,0,0,0.08)]">
-          <Image
-            src="/images/hero-computer.svg"
-            width={480}
-            height={480}
-            alt="UNLIMITED PC HOUSE computer showcase"
-            className="w-full rounded-[1.5rem] object-cover"
-          />
+
+        <div className="relative z-10 rounded-[2rem] border border-white/10 bg-white/10 p-3 shadow-[0_30px_90px_rgba(0,0,0,0.35)] backdrop-blur">
+          <div className="relative overflow-hidden rounded-[1.5rem]">
+            <Image
+              key={currentSlide.image}
+              src={currentSlide.image}
+              width={640}
+              height={720}
+              priority
+              alt="Featured computer and accessory showcase"
+              className="h-[420px] w-full object-cover transition-all duration-700 sm:h-[520px]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/10 to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6">
+              <p className="text-sm font-semibold uppercase tracking-[0.35em] text-emerald-300">{currentSlide.highlight}</p>
+              <div className="mt-3 inline-flex rounded-full border border-white/15 bg-black/20 px-3 py-2 text-sm text-white backdrop-blur">
+                Now available in-store and online
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

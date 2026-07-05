@@ -1,36 +1,42 @@
-// *********************
-// Role of the component: IntroducingSection with the text "Introducing Singitronic"
-// Name of the component: IntroducingSection.tsx
-// Developer: Aleksandar Kuzmanovic
-// Version: 1.0
-// Component call: <IntroducingSection />
-// Input parameters: no input parameters
-// Output: Section with the text "Introducing Singitronic" and button
-// *********************
-
 import Link from "next/link";
 import React from "react";
 
 const IntroducingSection = () => {
   return (
-    <div className="py-20 pt-24 bg-gradient-to-l from-white to-blue-600">
-      <div className="text-center flex flex-col gap-y-5 items-center">
-        <h2 className="text-white text-8xl font-extrabold text-center mb-2 max-md:text-6xl max-[480px]:text-4xl">
-          INTRODUCING <span className="text-black">LAKMAL</span><span className="text-blue-600"> COMPUTER SHOP</span>
-        </h2>
+    <section className="bg-[linear-gradient(135deg,#0f172a_0%,#111827_100%)] py-20 text-white">
+      <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-10">
         <div>
-          <p className="text-white text-center text-2xl font-semibold max-md:text-xl max-[480px]:text-base">
-            Buy the best computer parts, hardware, and repair services.
+          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-emerald-300">Why customers return</p>
+          <h2 className="mt-4 text-3xl font-semibold leading-tight sm:text-4xl">
+            Premium computer solutions, built around real performance and dependable service.
+          </h2>
+          <p className="mt-4 max-w-2xl text-lg text-slate-300">
+            Whether you&apos;re upgrading a home office, assembling a gaming setup or sourcing reliable parts, Lakmal Computer Shop delivers a smoother, more confident buying experience.
           </p>
-          <p className="text-white text-center text-2xl font-semibold max-md:text-xl max-[480px]:text-base">
-            Trusted repairs and components for every build.
-          </p>
-          <Link href="/shop" className="block text-blue-600 bg-white font-bold px-12 py-3 text-xl hover:bg-gray-100 w-96 mt-2  max-md:text-lg max-md:w-72 max-[480px]:w-60 mx-auto">
-            SHOP NOW
+        </div>
+
+        <div className="rounded-[2rem] border border-white/10 bg-white/10 p-6 shadow-[0_20px_70px_rgba(0,0,0,0.25)] backdrop-blur">
+          <div className="flex items-center gap-3 text-emerald-300">
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+            <span className="text-sm font-semibold uppercase tracking-[0.3em]">What you get</span>
+          </div>
+          <div className="mt-6 space-y-4 text-sm text-slate-300">
+            <div className="rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+              Carefully selected laptops, desktops and gaming hardware with competitive pricing.
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+              Warranty-backed components and local support that helps you get the most from every purchase.
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+              A focused storefront that keeps the experience clean, fast and easy to navigate.
+            </div>
+          </div>
+          <Link href="/shop" className="mt-6 inline-flex rounded-full bg-emerald-500 px-6 py-3 font-semibold text-white transition hover:-translate-y-1 hover:bg-emerald-400">
+            Shop now
           </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
