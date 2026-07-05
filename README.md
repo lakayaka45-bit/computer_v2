@@ -1,11 +1,11 @@
 ---
 title: Computer Shop Backend
-emoji: "pc"
+emoji: "💻"
 colorFrom: blue
 colorTo: indigo
 sdk: docker
 sdk_version: "4.0.0"
-app_file: hf-backend/app.js
+app_file: app.js
 app_port: 7860
 pinned: false
 ---

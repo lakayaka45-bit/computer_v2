@@ -2,10 +2,10 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY hf-backend/package*.json ./
+COPY package*.json ./
 RUN npm install --omit=dev
 
-COPY hf-backend ./
+COPY . ./
 
 RUN npx prisma generate --schema=./prisma/schema.prisma
 
