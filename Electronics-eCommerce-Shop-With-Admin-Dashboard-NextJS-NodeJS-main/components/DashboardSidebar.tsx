@@ -1,77 +1,53 @@
-// *********************
-// Role of the component: Sidebar on admin dashboard page
-// Name of the component: DashboardSidebar.tsx
-// Developer: Aleksandar Kuzmanovic
-// Version: 1.0
-// Component call: <DashboardSidebar />
-// Input parameters: no input parameters
-// Output: sidebar for admin dashboard page
-// *********************
+"use client";
 
 import React from "react";
-import { MdDashboard } from "react-icons/md";
-import { FaTable } from "react-icons/fa6";
-import { FaRegUser } from "react-icons/fa6";
-import { FaGear } from "react-icons/fa6";
-import { FaBagShopping } from "react-icons/fa6";
-import { FaStore } from "react-icons/fa6";
-import { MdCategory } from "react-icons/md";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { MdDashboard, MdCategory } from "react-icons/md";
+import { FaTable, FaRegUser, FaGear, FaBagShopping, FaStore } from "react-icons/fa6";
 import { FaFileUpload } from "react-icons/fa";
 
-import Link from "next/link";
+const navItems = [
+  { href: "/admin", label: "Overview", icon: MdDashboard },
+  { href: "/admin/orders", label: "Orders", icon: FaBagShopping },
+  { href: "/admin/products", label: "Products", icon: FaTable },
+  { href: "/admin/bulk-upload", label: "Bulk Upload", icon: FaFileUpload },
+  { href: "/admin/categories", label: "Categories", icon: MdCategory },
+  { href: "/admin/users", label: "Users", icon: FaRegUser },
+  { href: "/admin/merchant", label: "Merchants", icon: FaStore },
+  { href: "/admin/settings", label: "Settings", icon: FaGear },
+];
 
 const DashboardSidebar = () => {
+  const pathname = usePathname();
+
   return (
-    <div className="xl:w-[360px] bg-[#0f172a] h-full max-xl:w-full">
-      <Link href="/admin">
-        <div className="flex gap-x-2 w-full hover:bg-blue-600 cursor-pointer items-center py-6 pl-5 text-xl text-white">
-          <MdDashboard className="text-2xl" />{" "}
-          <span className="font-normal">Dashboard</span>
-        </div>
-      </Link>
-      <Link href="/admin/orders">
-        <div className="flex gap-x-2 w-full hover:bg-blue-600 cursor-pointer items-center py-6 pl-5 text-xl text-white">
-          <FaBagShopping className="text-2xl" />{" "}
-          <span className="font-normal">Orders</span>
-        </div>
-      </Link>
-      <Link href="/admin/products">
-        <div className="flex gap-x-2 w-full hover:bg-blue-600 cursor-pointer items-center py-6 pl-5 text-xl text-white">
-          <FaTable className="text-2xl" />{" "}
-          <span className="font-normal">Products</span>
-        </div>
-      </Link>
-      <Link href="/admin/bulk-upload">
-        <div className="flex gap-x-2 w-full hover:bg-blue-600 cursor-pointer items-center py-6 pl-5 text-xl text-white">
-          <FaFileUpload className="text-2xl" />{" "}
-          <span className="font-normal">Bulk Upload</span>
-        </div>
-      </Link>
-      <Link href="/admin/categories">
-        <div className="flex gap-x-2 w-full hover:bg-blue-600 cursor-pointer items-center py-6 pl-5 text-xl text-white">
-          <MdCategory className="text-2xl" />{" "}
-          <span className="font-normal">Categories</span>
-        </div>
-      </Link>
-      <Link href="/admin/users">
-        <div className="flex gap-x-2 w-full hover:bg-blue-600 cursor-pointer items-center py-6 pl-5 text-xl text-white">
-          <FaRegUser className="text-2xl" />{" "}
-          <span className="font-normal">Users</span>
-        </div>
-      </Link>
-      <Link href="/admin/merchant">
-        <div className="flex gap-x-2 w-full hover:bg-blue-600 cursor-pointer items-center py-6 pl-5 text-xl text-white">
-          <FaStore className="text-2xl" />{" "}
-          <span className="font-normal">Merchant</span>
-        </div>
-      </Link>
-        <Link href="/admin/settings">
-            <div className="flex gap-x-2 w-full hover:bg-[#1f2937] cursor-pointer items-center py-6 pl-5 text-xl text-white">
-                <FaGear className="text-2xl" />{" "}
-                <span className="font-normal">Settings</span>
-            </div>
-        </Link>
-    </div>
+    <aside className="w-full bg-[linear-gradient(180deg,#0f172a_0%,#111827_100%)] text-white xl:w-[320px] xl:min-h-screen">
+      <div className="border-b border-white/10 px-6 py-7">
+        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#86efac]">Control center</p>
+        <h2 className="mt-2 text-2xl font-semibold text-white">Admin panel</h2>
+        <p className="mt-2 text-sm text-slate-300">Manage inventory, orders, users and uploads from one place.</p>
+      </div>
+
+      <nav className="space-y-2 px-3 py-4">
+        {navItems.map(({ href, label, icon: Icon }) => {
+          const isActive = pathname === href || (href !== "/admin" && pathname.startsWith(href));
+
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1f2937] ${
+                isActive ? "bg-[#2e7d32] shadow-lg shadow-[#2e7d32]/20" : "bg-transparent"
+              }`}
+            >
+              <Icon className="text-lg" />
+              <span>{label}</span>
+            </Link>
+          );
+        })}
+      </nav>
+    </aside>
   );
 };
 

@@ -1,17 +1,24 @@
-// *********************
-// IN DEVELOPMENT
-// *********************
-
 import React from "react";
-import { FaArrowUp } from "react-icons/fa6";
 
+type StatsElementProps = {
+  title: string;
+  value: string;
+  description: string;
+  accent?: string;
+  icon?: React.ReactNode;
+};
 
-const StatsElement = () => {
+const StatsElement = ({ title, value, description, accent = "from-[#2e7d32] to-[#4caf50]", icon }: StatsElementProps) => {
   return (
-    <div className="w-80 h-32 bg-blue-500 text-white flex flex-col justify-center items-center rounded-md max-md:w-full">
-      <h4 className="text-xl text-white">New Products</h4>
-      <p className="text-2xl font-bold">2,230</p>
-      <p className="text-green-300 flex gap-x-1 items-center"><FaArrowUp />12.5% Since last month</p>
+    <div className={`rounded-3xl bg-gradient-to-br ${accent} p-5 text-white shadow-lg shadow-black/10`}>
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-white/80">{title}</p>
+          <p className="mt-3 text-3xl font-semibold">{value}</p>
+        </div>
+        {icon ? <div className="rounded-2xl bg-white/15 p-3 text-2xl">{icon}</div> : null}
+      </div>
+      <p className="mt-4 text-sm text-white/90">{description}</p>
     </div>
   );
 };

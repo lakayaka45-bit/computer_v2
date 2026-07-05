@@ -51,7 +51,7 @@ const LoginForm = ({ initialAdminMode = false }: LoginFormProps) => {
 
     const res = await signIn("credentials", {
       redirect: false,
-      email: isAdminMode ? process.env.NEXT_PUBLIC_ADMIN_USERNAME || "adminLaka" : email,
+      email: isAdminMode ? process.env.ADMIN_USERNAME || process.env.NEXT_PUBLIC_ADMIN_USERNAME || "adminLaka" : email,
       password,
     });
 

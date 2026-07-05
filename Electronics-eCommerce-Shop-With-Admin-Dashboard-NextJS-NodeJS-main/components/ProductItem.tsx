@@ -21,17 +21,23 @@ const ProductItem = ({
   product: Product;
   color: string;
 }) => {
+  const getProductImageSrc = () => {
+    const imagePath = product?.mainImage?.trim();
+
+    if (imagePath) {
+      return imagePath.startsWith("http") || imagePath.startsWith("/")
+        ? imagePath
+        : `/${imagePath}`;
+    }
+
+    return "/product_placeholder.jpg";
+  };
+
   return (
     <div className="flex flex-col items-center gap-y-2">
       <Link href={`/product/${product.slug}`} className="w-full rounded-2xl bg-[#f7fdf4] p-3">
         <Image
-          src={
-            product.mainImage
-              ? product.mainImage.startsWith("http") || product.mainImage.startsWith("/")
-                ? product.mainImage
-                : `/${product.mainImage}`
-              : "/images/hero-computer.svg"
-          }
+          src={getProductImageSrc()}
           width="0"
           height="0"
           sizes="100vw"

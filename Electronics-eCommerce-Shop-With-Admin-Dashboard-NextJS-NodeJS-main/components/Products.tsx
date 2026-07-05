@@ -11,6 +11,7 @@
 import React from "react";
 import ProductItem from "./ProductItem";
 import apiClient from "@/lib/api";
+import { isComputerRelatedProduct } from "@/lib/utils";
 
 const Products = async ({ params, searchParams }: { params: { slug?: string[] }, searchParams: { [key: string]: string | string[] | undefined } }) => {
   // getting all data from URL slug and preparing everything for sending GET request
@@ -58,7 +59,7 @@ const Products = async ({ params, searchParams }: { params: { slug?: string[] },
       products = [];
     } else {
       const result = await data.json();
-      products = Array.isArray(result) ? result : [];
+      products = Array.isArray(result) ? result.filter(isComputerRelatedProduct) : [];
     }
   } catch (error) {
     console.error('Error fetching products:', error);
@@ -73,7 +74,7 @@ const Products = async ({ params, searchParams }: { params: { slug?: string[] },
         ))
       ) : (
         <h3 className="text-3xl mt-5 text-center w-full col-span-full max-[1000px]:text-2xl max-[500px]:text-lg">
-          No products found for specified query
+          No computer products found for the selected filters.
         </h3>
       )}
     </div>

@@ -1,71 +1,66 @@
 export const categoryMenuList = [
   {
     id: 1,
-    title: "Smart Phones",
-    src: "/smart phone icon.png",
-    href: "/shop/smart-phones"
-  },
-  {
-    id: 2,
-    title: "Tablets",
-    src: "/tablet icon.png",
-    href: "/shop/tablets"
-  },
-  {
-    id: 3,
-    title: "Mouses",
-    src: "/mouse icon.png",
-    href: "/shop/mouses"
-  },
-  {
-    id: 4,
-    title: "Cameras",
-    src: "/camera icon.png",
-    href: "/shop/cameras"
-  },
-  {
-    id: 5,
-    title: "Smart Watches",
-    src: "/smart watch.png",
-    href: "/shop/watches"
-  },
-  {
-    id: 6,
     title: "Laptops",
     src: "/laptop icon.png",
     href: "/shop/laptops"
   },
   {
-    id: 7,
-    title: "PCs",
+    id: 2,
+    title: "Desktop PCs",
     src: "/pc icon.png",
     href: "/shop/computers"
   },
   {
-    id: 8,
+    id: 3,
+    title: "Mice",
+    src: "/mouse icon.png",
+    href: "/shop/mouses"
+  },
+  {
+    id: 4,
     title: "Printers",
     src: "/printers icon.png",
     href: "/shop/printers"
   },
   {
-    id: 9,
-    title: "Earbuds",
-    src: "/ear buds icon.png",
-    href: "/shop/earbuds"
-  },
-  {
-    id: 10,
-    title: "Head Phones",
-    src: "/headphone icon.png",
-    href: "/shop/headphones"
+    id: 5,
+    title: "Monitors",
+    src: "/tv.jpg",
+    href: "/shop/monitors"
   },
 ];
+
+export const COMPUTER_CATEGORY_KEYWORDS = [
+  "laptop",
+  "computer",
+  "desktop",
+  "pc",
+  "monitor",
+  "mouse",
+  "printer",
+  "keyboard",
+  "ssd",
+  "ram",
+  "motherboard",
+  "gpu",
+  "graphics",
+  "processor",
+  "storage",
+  "accessory",
+];
+
+export const isComputerRelatedProduct = (product: any) => {
+  const haystack = `${product?.title || ""} ${product?.description || ""} ${product?.category?.name || ""} ${product?.categoryName || ""}`.toLowerCase();
+  return COMPUTER_CATEGORY_KEYWORDS.some((keyword) => haystack.includes(keyword));
+};
 
 const COMPUTER_CATEGORY_NAMES = [
   "laptops",
   "computers",
   "mouses",
   "printers",
+  "monitors",
 ];
 
 export const computerCategoryMenuList = categoryMenuList.filter((item) =>
