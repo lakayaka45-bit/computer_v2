@@ -108,15 +108,12 @@ const Header = () => {
         </>
       )}
       {pathname.startsWith("/admin") === true && (
-        <div className="flex justify-between h-32 bg-white items-center px-16 max-[1320px]:px-10  max-w-screen-2xl mx-auto max-[400px]:px-5">
-          <Link href="/">
-            <Image
-              src="/logo v1.png"
-              width={130}
-              height={130}
-              alt="Lakmal Computer Shop logo"
-              className="w-56 h-auto"
-            />
+        <div className="flex justify-between h-32 bg-[linear-gradient(180deg,#1f2937_0%,#0f172a_100%)] items-center px-16 max-[1320px]:px-10 max-w-screen-2xl mx-auto max-[400px]:px-5">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="text-white">
+              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#86efac]">Admin</p>
+              <h1 className="text-2xl font-bold text-white">SINGITRONIC</h1>
+            </div>
           </Link>
           <div className="flex gap-x-5 items-center">
             <NotificationBell />

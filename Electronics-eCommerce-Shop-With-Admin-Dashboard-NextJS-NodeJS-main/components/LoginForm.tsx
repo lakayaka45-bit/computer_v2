@@ -27,10 +27,25 @@ const LoginForm = ({ initialAdminMode = false }: LoginFormProps) => {
       toast.error("Your session has expired. Please log in again.");
     }
 
-    if (sessionStatus === "authenticated") {
-      router.replace(isAdminMode ? "/admin" : "/");
+    if (sessionStatus === "authenticated" && session?.user) {
+      // Check if user is admin
+      const userRole = (session.user as any)?.role;
+      const isUserAdmin = userRole === "admin";
+      
+      // Redirect based on admin mode and user role
+      if (isAdminMode && isUserAdmin) {
+        router.replace("/admin");
+      } else if (!isAdminMode && !isUserAdmin) {
+        router.replace("/");
+      } else if (isAdminMode && !isUserAdmin) {
+        // Non-admin tried to access admin login
+        router.replace("/");
+      } else {
+        // Admin tried to access user login
+        router.replace("/admin");
+      }
     }
-  }, [sessionStatus, router, searchParams, isAdminMode]);
+  }, [sessionStatus, router, searchParams, isAdminMode, session]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();

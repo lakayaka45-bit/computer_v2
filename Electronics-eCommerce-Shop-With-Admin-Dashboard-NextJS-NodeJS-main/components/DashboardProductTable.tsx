@@ -32,7 +32,7 @@ const DashboardProductTable = () => {
 
   return (
     <div className="w-full">
-      <h1 className="text-3xl font-semibold text-center mb-5">All products</h1>
+      <h1 className="text-3xl font-semibold text-center mb-5 text-slate-900">All products</h1>
       <div className="flex justify-end mb-5">
         <Link href="/admin/products/new">
           <CustomButton
