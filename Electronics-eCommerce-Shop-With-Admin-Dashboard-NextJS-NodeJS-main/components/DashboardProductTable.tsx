@@ -14,6 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import CustomButton from "./CustomButton";
+import toast from "react-hot-toast";
 import apiClient from "@/lib/api";
 import { sanitize } from "@/lib/sanitize";
 
@@ -30,24 +31,40 @@ const DashboardProductTable = () => {
       });
   }, []);
 
+  const handleDelete = async (id: string) => {
+    if (!confirm("Delete product permanently? This cannot be undone.")) return;
+    try {
+      const res = await apiClient.delete(`/api/products/${id}`);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        toast.error(err?.error || `Failed to delete product (${res.status})`);
+        return;
+      }
+      setProducts((prev) => prev.filter((p) => p.id !== id));
+      toast.success("Product deleted");
+    } catch (error) {
+      console.error(error);
+      toast.error("Error deleting product");
+    }
+  };
+
   return (
     <div className="w-full">
-      <h1 className="text-3xl font-semibold text-center mb-5 text-slate-900">All products</h1>
-      <div className="flex justify-end mb-5">
-        <Link href="/admin/products/new">
-          <CustomButton
-            buttonType="button"
-            customWidth="110px"
-            paddingX={10}
-            paddingY={5}
-            textSize="base"
-            text="Add new product"
-          />
-        </Link>
+      <h1 className="text-3xl font-semibold text-white mb-5">Products</h1>
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex gap-3">
+          <Link href="/admin/products/new">
+            <button className="rounded-full bg-[#86efac] px-4 py-2 text-sm font-semibold text-[#022c1a]">Create New Product</button>
+          </Link>
+          <button className="rounded-full bg-[#86efac]/20 px-4 py-2 text-sm font-semibold text-slate-200">Download sample template</button>
+        </div>
+        <div className="flex gap-3">
+          <div className="rounded-md bg-[#0b1220] px-4 py-2 text-sm text-slate-300">Total Products: {products.length}</div>
+        </div>
       </div>
 
-      <div className="xl:ml-5 w-full max-xl:mt-5 overflow-auto w-full h-[80vh]">
-        <table className="table table-md table-pin-cols">
+      <div className="xl:ml-5 w-full max-xl:mt-5 overflow-auto w-full h-[70vh]">
+        <table className="table table-zebra w-full">
           {/* head */}
           <thead>
             <tr>
@@ -66,7 +83,7 @@ const DashboardProductTable = () => {
             {/* row 1 */}
             {products &&
               products.map((product) => (
-                <tr key={nanoid()}>
+                <tr key={nanoid()} className="align-top">
                   <th>
                     <label>
                       <input type="checkbox" className="checkbox" />
@@ -104,14 +121,13 @@ const DashboardProductTable = () => {
                     
                   </td>
                   <td>${product?.price}</td>
-                  <th>
-                    <Link
-                      href={`/admin/products/${product.id}`}
-                      className="btn btn-ghost btn-xs"
-                    >
-                      details
-                    </Link>
-                  </th>
+                  <td className="text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <Link href={`/admin/products/${product.id}`} className="btn btn-outline btn-success btn-sm">Edit</Link>
+                      <button onClick={() => handleDelete(product.id)} className="btn btn-outline btn-error btn-sm">Delete</button>
+                      <Link href={`/product/${product.slug || product.id}`} className="btn btn-outline btn-info btn-sm">View</Link>
+                    </div>
+                  </td>
                 </tr>
               ))}
           </tbody>

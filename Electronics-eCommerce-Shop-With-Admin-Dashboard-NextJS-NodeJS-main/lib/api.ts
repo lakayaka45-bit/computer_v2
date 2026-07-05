@@ -7,7 +7,12 @@ export const apiClient = {
   baseUrl: config.apiBaseUrl,
 
   async request(endpoint: string, options: RequestInit = {}) {
-    const url = `${this.baseUrl}${endpoint}`;
+    // Use relative paths when running in the browser so requests go to Next.js
+    // API routes (which then proxy or call the real backend). On the server
+    // (during SSR or server components) keep using the configured backend
+    // base URL so server-side code can reach the backend directly.
+    const runtimeBase = typeof window !== "undefined" ? "" : this.baseUrl;
+    const url = `${runtimeBase}${endpoint}`;
     const body = options.body;
 
     const headers = hasFormDataBody(body)

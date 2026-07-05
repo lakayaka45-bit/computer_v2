@@ -21,12 +21,12 @@ const DashboardCategory = () => {
   }, []);
 
   return (
-    <div className="bg-white flex justify-start max-w-screen-2xl mx-auto h-full max-xl:flex-col max-xl:h-fit max-xl:gap-y-4">
-      <DashboardSidebar />
-      <div className="w-full">
-        <h1 className="text-3xl font-semibold text-center mb-5">
-          All Categories
-        </h1>
+    <div className="min-h-screen bg-[linear-gradient(180deg,#0b1220_0%,#0f172a_100%)] text-white">
+      <div className="flex max-w-screen-2xl mx-auto h-full max-xl:flex-col">
+        <DashboardSidebar />
+        <main className="flex-1 p-6">
+          <div className="rounded-[1.5rem] bg-[#0b1220]/60 border border-white/10 p-6">
+            <h1 className="text-3xl font-semibold mb-5">All Categories</h1>
         <div className="flex justify-end mb-5">
           <Link href="/admin/categories/new">
             <CustomButton
@@ -39,8 +39,8 @@ const DashboardCategory = () => {
             />
           </Link>
         </div>
-        <div className="xl:ml-5 w-full max-xl:mt-5 overflow-auto w-full h-[80vh]">
-          <table className="table table-md table-pin-cols">
+            <div className="xl:ml-5 w-full max-xl:mt-5 overflow-auto w-full h-[70vh]">
+              <table className="table table-zebra w-full">
             {/* head */}
             <thead>
               <tr>
@@ -89,7 +89,9 @@ const DashboardCategory = () => {
               </tr>
             </tfoot>
           </table>
-        </div>
+            </div>
+          </div>
+        </main>
       </div>
     </div>
   );
