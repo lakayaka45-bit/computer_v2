@@ -1,0 +1,12 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" rx="48" fill="#F7FDF4"/>
+  <rect x="70" y="70" width="1060" height="760" rx="36" fill="white" stroke="#CFEBC4" stroke-width="8"/>
+  <rect x="170" y="200" width="420" height="260" rx="28" fill="#0F172A"/>
+  <rect x="220" y="240" width="320" height="180" rx="18" fill="#2E7D32"/>
+  <rect x="620" y="190" width="360" height="320" rx="32" fill="#F1F8E9"/>
+  <rect x="660" y="230" width="280" height="150" rx="16" fill="#DDECCF"/>
+  <rect x="660" y="410" width="280" height="40" rx="20" fill="#9CCC65"/>
+  <rect x="190" y="530" width="760" height="80" rx="24" fill="#E8F7DF"/>
+  <text x="600" y="585" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700" fill="#1B5E20">UNLIMIT PC HOUSE</text>
+  <text x="600" y="640" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#4CAF50">Computer product placeholder #24</text>
+</svg>

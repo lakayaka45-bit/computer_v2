@@ -37,6 +37,11 @@ const HeaderTop = () => {
             <FaRegEnvelope className="text-white text-xl" />
             <span>{process.env.NEXT_PUBLIC_COMPANY_EMAIL || "info@unlimitedpchouse.lk"}</span>
           </li>
+          <li className="flex items-center gap-x-2 font-semibold">
+            <Link href="/adminlogin" className="rounded-full border border-[#4caf50] px-3 py-1 text-xs uppercase tracking-[0.2em] text-[#d6f5c6] transition hover:bg-[#1b5e20]">
+              Admin
+            </Link>
+          </li>
         </ul>
         <ul className="flex items-center gap-x-5 h-full max-[370px]:text-sm max-[370px]:gap-x-2 font-semibold">
           {!session ? ( 

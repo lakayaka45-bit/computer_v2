@@ -27,8 +27,10 @@ const ProductItem = ({
         <Image
           src={
             product.mainImage
-              ? `/${product.mainImage}`
-              : "/product_placeholder.jpg"
+              ? product.mainImage.startsWith("http") || product.mainImage.startsWith("/")
+                ? product.mainImage
+                : `/${product.mainImage}`
+              : "/images/hero-computer.svg"
           }
           width="0"
           height="0"

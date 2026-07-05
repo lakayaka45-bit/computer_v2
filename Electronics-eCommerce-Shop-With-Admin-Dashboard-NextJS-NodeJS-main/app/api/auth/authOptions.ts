@@ -16,15 +16,23 @@ export const authOptions = {
       },
       async authorize(credentials: any) {
         try {
-          const adminUsername = process.env.ADMIN_USERNAME || "adminLaka";
-          const adminPassword = process.env.ADMIN_PASSWORD || "Ux3@f=7x2";
+          const adminUsername = (process.env.ADMIN_USERNAME || "adminLaka").trim();
+          const adminEmail = (process.env.ADMIN_EMAIL || "admin@admin.com").trim();
+          const adminPassword = (process.env.ADMIN_PASSWORD || "Ux3@f=7x2").trim();
+          const submittedEmail = (credentials?.email || "").toString().trim().toLowerCase();
 
-          if (credentials.email === adminUsername && credentials.password === adminPassword) {
-            return {
-              id: "admin-seeded-account",
-              email: `${adminUsername}@local.test`,
-              role: "admin",
-            };
+          if (
+            submittedEmail === adminUsername.toLowerCase() ||
+            submittedEmail === adminEmail.toLowerCase()
+          ) {
+            if (credentials.password === adminPassword) {
+              return {
+                id: "admin-seeded-account",
+                email: adminEmail,
+                name: "Administrator",
+                role: "admin",
+              };
+            }
           }
 
           const user = await prisma.user.findFirst({

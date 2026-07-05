@@ -79,17 +79,27 @@ const Header = () => {
     <header className="bg-white">
       <HeaderTop />
       {pathname.startsWith("/admin") === false && (
-        <div className="h-32 bg-white flex items-center justify-between px-16 max-[1320px]:px-16 max-md:px-6 max-lg:flex-col max-lg:gap-y-7 max-lg:justify-center max-lg:h-60 max-w-screen-2xl mx-auto">
-          <Link href="/">
-            <img src="/logo v1 svg.svg" width={300} height={300} alt="Lakmal Computer Shop logo" className="relative right-5 max-[1023px]:w-56" />
-          </Link>
-          <SearchInput />
-          <div className="flex gap-x-10 items-center">
-            <NotificationBell />
-            <HeartElement wishQuantity={wishQuantity} />
-            <CartElement />
+        <>
+          <div className="h-32 bg-white flex items-center justify-between px-16 max-[1320px]:px-16 max-md:px-6 max-lg:flex-col max-lg:gap-y-7 max-lg:justify-center max-lg:h-60 max-w-screen-2xl mx-auto">
+            <Link href="/">
+              <img src="/logo v1 svg.svg" width={300} height={300} alt="Lakmal Computer Shop logo" className="relative right-5 max-[1023px]:w-56" />
+            </Link>
+            <SearchInput />
+            <div className="flex gap-x-10 items-center">
+              <NotificationBell />
+              <HeartElement wishQuantity={wishQuantity} />
+              <CartElement />
+            </div>
           </div>
-        </div>
+          <nav className="border-y border-[#e8f7df] bg-[#f7fdf4]">
+            <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-6 gap-y-3 px-6 py-3 text-sm font-semibold text-[#1b5e20]">
+              <Link href="/" className="transition hover:text-[#2e7d32]">Home</Link>
+              <Link href="/shop" className="transition hover:text-[#2e7d32]">Shop</Link>
+              <Link href="/contact" className="transition hover:text-[#2e7d32]">Contact</Link>
+              <Link href="/about" className="transition hover:text-[#2e7d32]">About</Link>
+            </div>
+          </nav>
+        </>
       )}
       {pathname.startsWith("/admin") === true && (
         <div className="flex justify-between h-32 bg-white items-center px-16 max-[1320px]:px-10  max-w-screen-2xl mx-auto max-[400px]:px-5">

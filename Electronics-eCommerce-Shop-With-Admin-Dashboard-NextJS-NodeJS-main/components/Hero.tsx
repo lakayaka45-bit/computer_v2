@@ -43,10 +43,10 @@ const Hero = () => {
         </div>
         <div className="animate-[fadeInRight_0.9s_ease-out] rounded-[2rem] border border-[#d6f3c5] bg-white p-6 shadow-[0_30px_80px_rgba(0,0,0,0.08)]">
           <Image
-            src="/watch for banner.png"
+            src="/images/hero-computer.svg"
             width={480}
             height={480}
-            alt="featured electronics"
+            alt="UNLIMITED PC HOUSE computer showcase"
             className="w-full rounded-[1.5rem] object-cover"
           />
         </div>

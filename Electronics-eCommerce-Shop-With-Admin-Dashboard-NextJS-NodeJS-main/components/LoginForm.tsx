@@ -82,13 +82,15 @@ const LoginForm = ({ initialAdminMode = false }: LoginFormProps) => {
 
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12 border border-[#d9f5d0]">
-            <button
-              type="button"
-              onClick={() => setIsAdminMode((value) => !value)}
-              className="mb-4 rounded-full border border-[#4caf50] px-4 py-2 text-sm font-semibold text-[#2e7d32]"
-            >
-              {isAdminMode ? "Switch to customer login" : "Use admin credentials"}
-            </button>
+            {isAdminMode ? (
+              <p className="mb-4 rounded-full border border-[#d6f3c5] bg-[#f7fdf4] px-4 py-2 text-sm text-[#2e7d32]">
+                Admin access is available at the dedicated admin login page. Use your admin credentials here.
+              </p>
+            ) : (
+              <p className="mb-4 rounded-full border border-[#d6f3c5] bg-[#f7fdf4] px-4 py-2 text-sm text-[#2e7d32]">
+                Customer sign in for shopping and order tracking.
+              </p>
+            )}
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
