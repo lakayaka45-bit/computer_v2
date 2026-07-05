@@ -1,23 +1,19 @@
 import { PrismaClient } from "@prisma/client"; 
 
 const prismaClientSingleton = () => {
-    // Validate that DATABASE_URL is present
-    if (!process.env.DATABASE_URL) {
-        throw new Error('DATABASE_URL environment variable is required');
-    }
-
-    // Parse DATABASE_URL to check SSL configuration
     const databaseUrl = process.env.DATABASE_URL;
-    const url = new URL(databaseUrl);
-    
-    // Log SSL configuration for debugging
-    if (process.env.NODE_ENV === "development") {
-        console.log(` Database connection: ${url.protocol}//${url.hostname}:${url.port || '3306'}`);
-        console.log(`🔒 SSL Mode: ${url.searchParams.get('sslmode') || 'not specified'}`);
+
+    if (databaseUrl) {
+        const url = new URL(databaseUrl);
+        if (process.env.NODE_ENV === "development") {
+            console.log(` Database connection: ${url.protocol}//${url.hostname}:${url.port || '3306'}`);
+            console.log(`🔒 SSL Mode: ${url.searchParams.get('sslmode') || 'not specified'}`);
+        }
+    } else if (process.env.NODE_ENV === "production") {
+        throw new Error('DATABASE_URL environment variable is required in production');
     }
 
     return new PrismaClient({
-        // Add logging for debugging
         log: process.env.NODE_ENV === "development" 
             ? ['query', 'info', 'warn', 'error']
             : ['error', 'warn'],
@@ -34,4 +30,4 @@ const prisma = globalForPrisma.prisma ?? prismaClientSingleton();
 
 export default prisma;
 
-if(process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
