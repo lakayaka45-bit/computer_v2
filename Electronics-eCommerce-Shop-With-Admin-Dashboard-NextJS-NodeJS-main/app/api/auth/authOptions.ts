@@ -1,4 +1,3 @@
-import type { AuthOptions } from "next-auth";
 import { Account, User as AuthUser } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
@@ -6,7 +5,7 @@ import bcrypt from "bcryptjs";
 import prisma from "@/utils/db";
 import { nanoid } from "nanoid";
 
-export const authOptions: AuthOptions = {
+export const authOptions = {
   providers: [
     CredentialsProvider({
       id: "credentials",
